@@ -74,6 +74,8 @@ function ChatPanel() {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      contentContainerStyle={{ height: "100%" }}
+      style={{ height: "100%" }}
     >
       {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
       <View style={styles.container}>

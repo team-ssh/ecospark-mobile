@@ -14,10 +14,12 @@ function ChatResponse({message}) {
       <View style={styles.message}>
         <Markdown style={styles.markdown}>{message.message}</Markdown>
       </View>
-      <ScrollView horizontal={true} contentContainerStyle={styles.productCarousel}>
+      <ScrollView horizontal={true} style={{
+        width: '100%'
+      }} contentContainerStyle={styles.productCarousel}>
         {message.products.map((product, index) => {
           return (
-            <ProductCard key={index} product={product} />
+            <ProductCard key={index} product={product}/>
           );
         })}
       </ScrollView>

@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   productCarousel: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "nowrap",
     padding: SIZES.medium,
-    overflow: "scroll",
     columnGap: SIZES.medium,
   },
   productCard: {

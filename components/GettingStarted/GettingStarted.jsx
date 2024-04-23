@@ -5,7 +5,7 @@ import Button from "../../components/common/button/Button";
 
 function GettingStarted() {
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <View style={{ backgroundColor: "white", height: "100%" }}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
