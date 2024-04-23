@@ -38,18 +38,6 @@ function ChatPanel() {
       setValue("");
       setLoading(true);
       try {
-        console.log('data', {
-          chatHistory: messages.map(message => {
-            return {
-              message: message.message,
-              role: message.role,
-              // remove products
-            }
-          }),
-          message: value,
-          clientId: "123",
-        });
-
         const response = await axiosInstance.post("/chatbot", {
           chatHistory: messages.map(message => {
             return {
