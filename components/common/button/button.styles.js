@@ -2,12 +2,11 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT, SHADOWS, SIZES } from "../../../assets/constants/theme";
 
 const styles = StyleSheet.create({
-  container: (color) => ({
+  container: (color, width = "85%") => ({
     height: 65,
-    width: "85%",
+    width,
     maxWidth: 500,
     borderRadius: SIZES.medium,
-    padding: SIZES.xLarge,
     backgroundColor: color || COLORS.primary,
     padding: "none",
     display: "flex",

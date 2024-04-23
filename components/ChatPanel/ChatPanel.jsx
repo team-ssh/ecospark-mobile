@@ -12,14 +12,14 @@ import {
 import styles from "./chatPanel.style";
 import LoadingDots from "react-native-loading-dots";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useEffect, useState } from "react";
-import { COLORS } from "../../assets/constants/theme";
-import { MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import {useEffect, useState} from "react";
+import {COLORS} from "../../assets/constants/theme";
+import {MaterialIcons} from "@expo/vector-icons";
+import {router} from "expo-router";
 import ChatResponse from "../ChatResponse/ChatResponse";
 import ChatQuestion from "../ChatQuestion/ChatQuestion";
-import { match } from "ts-pattern";
-import { axiosInstance } from "../../services/axios";
+import {match} from "ts-pattern";
+import {axiosInstance} from "../../services/axios";
 import Loading from "../Loading/Loading";
 
 function ChatPanel() {
@@ -33,13 +33,31 @@ function ChatPanel() {
 
   const handleSubmit = async () => {
     if (value) {
-      let temp = [...messages, { message: value, role: "user" }];
+      let temp = [...messages, {message: value, role: "user"}];
       setMessages(temp);
       setValue("");
       setLoading(true);
       try {
+        console.log('data', {
+          chatHistory: messages.map(message => {
+            return {
+              message: message.message,
+              role: message.role,
+              // remove products
+            }
+          }),
+          message: value,
+          clientId: "123",
+        });
+
         const response = await axiosInstance.post("/chatbot", {
-          chatHistory: messages,
+          chatHistory: messages.map(message => {
+            return {
+              message: message.message,
+              role: message.role,
+              // remove products
+            }
+          }),
           message: value,
           clientId: "123",
         });
@@ -50,6 +68,7 @@ function ChatPanel() {
             ...temp,
             {
               message: response.data.message,
+              products: response.data.products,
               role: "system",
             },
           ];
@@ -62,6 +81,7 @@ function ChatPanel() {
       }
     }
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -72,19 +92,19 @@ function ChatPanel() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.messageContainer}>
             <ChatResponse
-              message={{ message: "Hello, how can I help you today?" }}
+              message={{message: "Hello, how can I help you today?", products: []}}
             />
             {messages?.map((msg, i) => (
               <View key={i}>
-                {i % 2 === 1 ? (
-                  <ChatResponse message={msg} />
+                {msg.role === "system" ? (
+                  <ChatResponse message={msg}/>
                 ) : (
-                  <ChatQuestion message={msg} />
+                  <ChatQuestion message={msg}/>
                 )}
               </View>
             ))}
 
-            {loading && <Loading />}
+            {loading && <Loading/>}
             {/* {messages?.map((msg, i) => (
                
               ))} */}
@@ -110,7 +130,7 @@ function ChatPanel() {
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.inputBtn} onPress={handleSubmit}>
-            <FontAwesome size={20} name="send" color={COLORS.primary} />
+            <FontAwesome size={20} name="send" color={COLORS.primary}/>
           </TouchableOpacity>
         </View>
       </View>
