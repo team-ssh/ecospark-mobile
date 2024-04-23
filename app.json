@@ -7,7 +7,7 @@
     "plugins": [
       "expo-router"
     ],
-    "name": "final",
-    "slug": "final"
+    "name": "EcoSpark",
+    "slug": "ecospark"
   }
 }
